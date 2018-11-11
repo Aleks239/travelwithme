@@ -15,11 +15,16 @@ class Traveller(models.Model):
     def __str__(self):
         return self.user.username
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=1,validators=[
-            MaxValueValidator(100),
-            MinValueValidator(1)
+    rating = models.IntegerField(default=0,validators=[
+            MaxValueValidator(5),
+            MinValueValidator(0)
             ])
-    hobby = models.TextField()
+    hobbies = models.TextField()
+    nationality = models.CharField(max_length=10)
+    gender = models.CharField(max_length=10)
+    birthday = models.DateField()
+
+
 
 
 class Trip(models.Model):
