@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -10,13 +12,19 @@ class Traveller(models.Model):
     rating - IntField
     hobby - TextField
     '''
-    pass
-    
+    def __str__(self):
+        return self.user.username
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=1,validators=[
+            MaxValueValidator(100),
+            MinValueValidator(1)
+            ])
+    hobby = models.TextField()
 
 
 class Trip(models.Model):
     '''
-    When trip is done it should delete all corresponding requests. 
+    When trip is done it should delete all corresponding requests.
     Or they must be cleaned once trip is locked (???)
     id
     creator -> association with Traveller
