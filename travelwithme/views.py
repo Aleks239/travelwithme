@@ -1,16 +1,30 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from travelwithme.models import Traveller
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    return render(request, "travelwithme/searchtrip.html")
+    if request.method == "GET":
+        return render(request, "travelwithme/searchtrip.html", {"user":request.user})
+            
 def users(request):
     return render(request, "travelwithme/alltrips.html")
-def login(request):
+    
+def login_page(request):
+    if request.user.is_authenticated:
+         return redirect("travelwithme:index")
     return render(request, "travelwithme/login.html")
+    
 def signup(request):
+    if request.user.is_authenticated:
+         return redirect("travelwithme:index")
     return render(request, "travelwithme/signup.html")
+
+def log_user_out(request):
+    logout(request)
+    return redirect("travelwithme:index")
 
 
 #POST handlers
@@ -31,15 +45,37 @@ def signup_user(request):
             elif User.objects.filter(email=email).exists():
                 return render(request, "travelwithme/signup.html", {"error":"User exists"})
             else:
-                print("!!!!!!!")
                 username = email
                 user = User.objects.create_user(username, email=email, first_name=first_name, last_name=last_name, password=password)
                 traveller = Traveller.objects.create(user=user, hobbies=hobbies, nationality=nationality, birthday=birthday, gender=gender).save()
                 user.save()
+                login(request, user, backend="django.contrib.auth.backends.ModelBackend")
                 return redirect("travelwithme:index")
 
 
         else:
-            return render(request, "travelwithme/signup.html", {error:"Error in fields"})
+            return render(request, "travelwithme/signup.html", {"error":"Error in fields"})
     else:
         return render(request, "travelwithme/signup.html")
+
+def log_user_in(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+        password = request.POST["password"]
+        if email is not None and password is not None:
+            if not email or not password:
+                return render(request, "travelwithme/login.html", {"error": "Empty input"})
+               
+            else:
+                username = email
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect("travelwithme:index")
+                else:
+                    return render(request, "travelwithme/login.html", {"error":"Wrong username or password"})
+                
+        else:
+            return render(request, "travelwithme/login.html", {"error": "Error in fields"})
+    else:
+        return redirect("travelwithme:login")

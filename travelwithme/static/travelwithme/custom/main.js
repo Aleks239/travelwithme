@@ -10,4 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // Or with jQuery
   $(document).ready(function(){
     $('select').formSelect();
+    $('.fixed-action-btn').floatingActionButton({hoverEnabled:true});
+    $('.carousel.carousel-slider').carousel({
+      fullWidth: true,
+      indicators: true
+    });
   });
+
+
+

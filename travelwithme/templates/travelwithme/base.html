@@ -22,19 +22,27 @@
                 <li><a href="{% url 'travelwithme:signup' %}">Signup</a></li>
       {% elif request.path == "/signup"  %}
                 <li><a href="{% url 'travelwithme:login' %}">Login</a></li>
+        {% elif request.path == "/" and request.user.is_authenticated %}
+        <li><a href="{% url 'travelwithme:logout' %}">Logout</a></li>
+        <li><a href="{% url 'travelwithme:logout' %}">My trips</a></li>
         {% elif request.path == "/"  %}
                 <li><a href="{% url 'travelwithme:login' %}">Login</a></li>
+        
       {% endif %}
     </ul>
   </div>
 </nav>
-
         <div class="container">
+          {% if user.is_authenticated %}
+            <h3 >Welcome {{ user.first_name }} {{user.last_name}}</h3>
+          {% endif %}
           {% block content %}{% endblock content %}
         </div>
+
+
+
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="{% static "travelwithme/custom/main.js" %}"></script>
-
     <script type="text/javascript" src="{% static "travelwithme/materialize/js/materialize.js" %}"></script>
   </body>
 </html>
