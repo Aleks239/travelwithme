@@ -1,16 +1,20 @@
 {% extends "travelwithme/base.html" %}
 {% block content %}
+{% if error %}
+    <h3 style="color: red">{{ error }}</h3>
+{% endif %}
     <div class="row">
-      <form class="col s12">
+      <form action="{% url 'travelwithme:search_trips' %}" class="col s12" method="post">
+        {% csrf_token %}
         <div class="row">
         <div class="input-field col s4">
-          <input placeholder="Start date" type="text" class="datepicker">
+          <input name="start_date" placeholder="Start date" type="text" class="datepicker">
         </div>
         <div class="input-field col s4">
-            <input placeholder="End date" type="text" class="datepicker">
+            <input name="end_date" placeholder="End date" type="text" class="datepicker">
           </div>
           <div class="input-field col s4">
-              <input placeholder="Destination" id="dest" type="text" class="validate">
+              <input name="destination" placeholder="Destination" id="dest" type="text" class="validate">
             </div>
       </div>
         <button class="btn waves-effect waves-light" type="submit" name="action">Search for a trip

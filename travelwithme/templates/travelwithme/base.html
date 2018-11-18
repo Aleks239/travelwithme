@@ -24,7 +24,7 @@
                 <li><a href="{% url 'travelwithme:login' %}">Login</a></li>
         {% elif request.path == "/" and request.user.is_authenticated %}
         <li><a href="{% url 'travelwithme:logout' %}">Logout</a></li>
-        <li><a href="{% url 'travelwithme:logout' %}">My trips</a></li>
+        <li><a href="{% url 'travelwithme:mytrips' %}">My trips</a></li>
         <li><a href="{% url 'travelwithme:logout' %}">My requests</a></li>
         {% elif request.path == "/"  %}
                 <li><a href="{% url 'travelwithme:login' %}">Login</a></li>
@@ -34,7 +34,7 @@
   </div>
 </nav>
         <div class="container">
-          {% if user.is_authenticated %}
+          {% if user.is_authenticated and request.path == "/" %}
             <h3 >Welcome {{ user.first_name }} {{user.last_name}}</h3>
           {% endif %}
           {% block content %}{% endblock content %}
