@@ -1,0 +1,139 @@
+{% extends "travelwithme/base.html" %}
+
+{% block background %}
+<img id="background" class="responsive-img" src="https://images.unsplash.com/photo-1508495761350-6a8bf2a2128a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d6f5c6aef82385e442e5b1b6f439c733&auto=format&fit=crop&w=2550&q=80"
+  alt="sea">
+{% endblock background %}
+
+{% block content %}
+<div>
+  <form action="">
+    <h3>Please rate this trip!</h3>
+    <label style="font-size: 1.5rem; color: black">Overall grade for this trip (10-highest 0-lowest):</label>
+    <div class="row">
+      <span class="col s1 center-align">
+        <h5>0</h5>
+      </span>
+      <p class="range-field col s10">
+        <input type="range" id="test5" min="0" max="10">
+      </p>
+      <span class="col s1 center-align">
+        <h5>10</h5>
+      </span>
+    </div>
+    <label style="font-size: 1.5rem;color: black">Overall grade for your trip partner (10-highest 0-lowest):</label>
+    <div class="row">
+      <span class="col s1 center-align">
+        <h5>0</h5>
+      </span>
+      <p class="range-field col s10">
+        <input type="range" id="test5" min="0" max="10">
+      </p>
+      <span class="col s1 center-align">
+        <h5>10</h5>
+      </span>
+    </div>
+    <label style="font-size: 1.5rem;color: black">Other comments:</label>
+    <div class="row"></div> <!-- margin -->
+    <div class="row">
+      <textarea id="Introduction" class="materialize-textarea white col s12" style="font-size: 1.5rem"></textarea>
+    </div>
+    <div class="center-align">
+      <button class="btn-large waves-effect waves-light" type="submit" name="action">Submit Feedback
+        <i class="material-icons right">done</i>
+      </button>
+    </div>
+  </form>
+</div>
+<div class="card horizontal">
+  <div class="card-image">
+<img src="https://images.unsplash.com/photo-1512757776214-26d36777b513?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=dec77b2324f0dc500ba385f6d9cb0a88&auto=format&fit=crop&w=668&q=80" class="responsive-img">
+  </div>
+  <div class="card-stacked">
+    <div class="card-content">
+<form action="">
+  <h3>Please rate this trip!</h3>
+  <label style="font-size: 1.5rem; color: black">Overall grade for this trip (10-highest 0-lowest):</label>
+  <div class="row">
+    <span class="col s1 center-align">
+      <h5>0</h5>
+    </span>
+    <p class="range-field col s10">
+      <input type="range" id="test5" min="0" max="10">
+    </p>
+    <span class="col s1 center-align">
+      <h5>10</h5>
+    </span>
+  </div>
+  <label style="font-size: 1.5rem;color: black">Overall grade for your trip partner (10-highest 0-lowest):</label>
+  <div class="row">
+    <span class="col s1 center-align">
+      <h5>0</h5>
+    </span>
+    <p class="range-field col s10">
+      <input type="range" id="test5" min="0" max="10">
+    </p>
+    <span class="col s1 center-align">
+      <h5>10</h5>
+    </span>
+  </div>
+  <label style="font-size: 1.5rem;color: black">Other comments:</label>
+  <div class="row"></div> <!-- margin -->
+  <div class="row">
+    <textarea id="Introduction" class="materialize-textarea white col s12" style="font-size: 1.5rem"></textarea>
+  </div>
+  <div class="center-align">
+    <button class="btn-large waves-effect waves-light" type="submit" name="action">Submit Feedback
+      <i class="material-icons right">done</i>
+    </button>
+  </div>
+</form>
+    </div>
+  </div>
+</div>
+
+<div class="card small" style="height: 800px;">
+  <div class="card-image" style="max-height:40%">
+    <img src="http://materializecss.com/images/sample-1.jpg">
+<span class="card-title">Please rate this trip!</span>
+  </div>
+  <div class="card-content" style="overflow: visible; max-height: 100%;">
+<form action="">
+  <label style="font-size: 1.5rem; color: black">Overall grade for this trip (10-highest 0-lowest):</label>
+  <div class="row">
+    <span class="col s1 center-align">
+      <h5>0</h5>
+    </span>
+    <p class="range-field col s10" style="margin: 16px 0">
+      <input type="range" id="test5" min="0" max="10">
+    </p>
+    <span class="col s1 center-align">
+      <h5>10</h5>
+    </span>
+  </div>
+  <label style="font-size: 1.5rem;color: black">Overall grade for your trip partner (10-highest 0-lowest):</label>
+  <div class="row">
+    <span class="col s1 center-align">
+      <h5>0</h5>
+    </span>
+<p class="range-field col s10" style="margin: 16px 0">
+      <input type="range" id="test5" min="0" max="10">
+    </p>
+    <span class="col s1 center-align">
+      <h5>10</h5>
+    </span>
+  </div>
+  <label style="font-size: 1.5rem;color: black">Other comments:</label>
+  <div class="row"></div> <!-- margin -->
+  <div class="row">
+    <textarea id="Introduction" class="materialize-textarea white col s12" style="font-size: 1.5rem"></textarea>
+  </div>
+  <div class="center-align">
+    <button class="btn-large waves-effect waves-light" type="submit" name="action">Submit Feedback
+      <i class="material-icons right">done</i>
+    </button>
+  </div>
+</form>
+  </div>
+</div>
+{% endblock content %}
