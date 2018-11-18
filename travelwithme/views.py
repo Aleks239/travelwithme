@@ -8,15 +8,40 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     if request.method == "GET":
         return render(request, "travelwithme/searchtrip.html", {"user":request.user})
-            
+
 def users(request):
     return render(request, "travelwithme/alltrips.html")
-    
+
+def search_result(request):
+    return render(request, "travelwithme/searchresult.html", {
+        'id': 12345, 'list': [
+      { "id": 1213, "topic": 'what should we do?', "hobby": 'Swim, soccer', 'email': 're@re.com', 'name': 'Lucy', 'reputation': 8.0 },
+      { "id": 123, "topic": 'what should we do?', "hobby": 'Swim, soccer', 'email': 're@re.com', 'name': 'Lucy', 'reputation': 8.0 },
+      { "id": 32, "topic": 'what should we do?', "hobby": 'Swim, soccer', 'email': 're@re.com', 'name': 'Lucy', 'reputation': 8.0 },
+      { "id": 43, "topic": 'what should we do?', "hobby": 'Swim, soccer', 'email': 're@re.com', 'name': 'Lucy', 'reputation': 8.0 },
+      { "id": 54, "topic": 'what should we do?', "hobby": 'Swim, soccer', 'email': 're@re.com', 'name': 'Lucy', 'reputation': 8.0 },
+    ],
+    })
+
 def login_page(request):
     if request.user.is_authenticated:
          return redirect("travelwithme:index")
     return render(request, "travelwithme/login.html")
-    
+
+def rate_trip(request):
+    return render(request, "travelwithme/ratepage.html")
+
+def my_trip(request):
+    return render(request, "travelwithme/mytrip.html")
+
+def notification(request):
+    return render(request, "travelwithme/notification.html")
+
+def create_trip(request):
+    return render(request, "travelwithme/createtrip.html")
+    # if request.user.is_authenticated:
+    # return redirect("travelwithme:index")
+
 def signup(request):
     if request.user.is_authenticated:
          return redirect("travelwithme:index")
@@ -25,7 +50,6 @@ def signup(request):
 def log_user_out(request):
     logout(request)
     return redirect("travelwithme:index")
-
 
 #POST handlers
 
@@ -65,7 +89,7 @@ def log_user_in(request):
         if email is not None and password is not None:
             if not email or not password:
                 return render(request, "travelwithme/login.html", {"error": "Empty input"})
-               
+
             else:
                 username = email
                 user = authenticate(request, username=username, password=password)
@@ -74,7 +98,7 @@ def log_user_in(request):
                     return redirect("travelwithme:index")
                 else:
                     return render(request, "travelwithme/login.html", {"error":"Wrong username or password"})
-                
+
         else:
             return render(request, "travelwithme/login.html", {"error": "Error in fields"})
     else:
