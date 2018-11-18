@@ -1,0 +1,57 @@
+{% extends "travelwithme/base.html" %}
+
+{% block background %}
+<img id="background" class="responsive-img" src="https://images.unsplash.com/photo-1508495761350-6a8bf2a2128a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d6f5c6aef82385e442e5b1b6f439c733&auto=format&fit=crop&w=2550&q=80"
+  alt="sea">
+{% endblock background %}
+
+{% block content %}
+<div class="row">
+  <ul class="collapsible col s9" data-collapsible="accordion" style="background-color: #fafafa">
+    {% for item in list %}
+    <li>
+      <div class="collapsible-header">
+        <div class="row">
+          <img src="https://www.shareicon.net/download/2016/07/05/791215_people_512x512.png" alt="figure" class="responsive-img col s2 circle">
+
+          <p class="col s10">Reputation: {{ item.reputation }} <br> {{ item.topic }}</p>
+        </div>
+      </div>
+      <div class="collapsible-body">
+        <div class="row">
+          <div class="col s8">
+            Hobby: {{ item.hobby }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla vitae possimus illum
+            placeat quaerat quia ipsum dignissimos totam ex cumque, voluptates obcaecati itaque, exercitationem esse
+            quo ad neque illo qui.
+          </div>
+          <div class="col s4">
+            <div class="row">
+              <a style="width: 100%" href="mailto:{{ item.email }}?Subject=Request%20from%20travelwithme" class="right waves-effect waves-light btn">
+                Contact Via Email</a>
+            </div>
+
+            <div class="row">
+            <a style="width: 100%" onclick="M.toast({html: 'Request on the way!', classes: 'rounded'});" class="right waves-effect waves-light btn">
+                Send Request</a>
+            </div>
+
+          </div>
+        </div>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div id="filter" class="col s3">
+    <ul class="collection">
+      <li class="collection-item">Same Country</li>
+      <li class="collection-item">Same Age</li>
+      <li class="collection-item">Same Gender</li>
+      <li class="collection-item">Same Hobby</li>
+    </ul>
+    <ul class="collection" style="margin-top: 50">
+      <li class="collection-item">Create New Travel</li>
+    </ul>
+  </div>
+</div>
+
+{% endblock content %}
