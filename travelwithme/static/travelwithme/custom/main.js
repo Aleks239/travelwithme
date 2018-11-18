@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Or with jQuery
   $(document).ready(function(){
+    $('.collapsible').collapsible();
     $('select').formSelect();
     $('.fixed-action-btn').floatingActionButton({hoverEnabled:true});
     $('.carousel.carousel-slider').carousel({

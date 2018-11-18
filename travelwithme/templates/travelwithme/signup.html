@@ -1,12 +1,12 @@
 {% extends "travelwithme/base.html" %}
 {% block content %}
 {% if error %}
-    <h3 style="color: red">{{ error }}</h3>
+<h3 style="color: red">{{ error }}</h3>
 {% endif %}
 <h1>Register</h1>
 <div class="row">
   <form action="{% url 'travelwithme:signup_user' %}" method="post" class="col s12">
-      {% csrf_token %}
+    {% csrf_token %}
     <div class="row">
       <div class="input-field col s6">
         <input name="first_name" id="first_name" type="text" class="validate">
@@ -19,7 +19,7 @@
     </div>
     <div class="row">
       <div class="input-field col s4">
-        <input name="birthday"  type="text" class="datepicker">
+        <input name="birthday" type="text" class="datepicker">
         <label for="first_name">Birthday</label>
       </div>
       <div class="input-field col s4">
@@ -27,12 +27,12 @@
         <label for="last_name">Nationality</label>
       </div>
       <div class="input-field col s4">
-    <select required name="gender">
-      <option value="" disabled selected>Select your gender</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-    </select>
-  </div>
+        <select required name="gender">
+          <option value="" disabled selected>Select your gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
     </div>
     <div class="row">
       <div class="input-field col s6">
@@ -45,16 +45,16 @@
       </div>
     </div>
     <div class="row">
-      <div class="row">
-        <div class="input-field col s12">
-          <textarea name="hobbies" id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1">Hobbies</label>
-        </div>
+      <div class="input-field col s12">
+        <textarea name="hobbies" id="textarea1" class="materialize-textarea"></textarea>
+        <label for="textarea1">Hobbies</label>
       </div>
-  </div>
-  <button class="btn waves-effect waves-light" type="submit">Register
-   <i class="material-icons right">search</i>
- </button>
+    </div>
+    <div class="center-align">
+      <button class="btn waves-effect waves-light" type="submit">Register
+        <i class="material-icons right">search</i>
+      </button>
+    </div>
   </form>
 </div>
 

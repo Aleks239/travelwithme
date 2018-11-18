@@ -1,24 +1,29 @@
 {% extends "travelwithme/base.html" %}
 {% block content %}
 {% if error %}
-    <h3 style="color: red">{{ error }}</h3>
+<h3 style="color: red">{{ error }}</h3>
 {% endif %}
 <div class="row">
   <form action="{% url 'travelwithme:log_user_in' %}" method="post" class="col s12">
-      {% csrf_token %}
+    {% csrf_token %}
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s12">
         <input name="email" id="email" type="email" class="validate">
         <label for="email">Email</label>
       </div>
-      <div class="input-field col s6">
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
         <input name="password" id="email" type="password" class="validate">
         <label for="email">Password</label>
       </div>
     </div>
-  <button class="btn waves-effect waves-light" type="submit" name="action">Login
-   <i class="material-icons right">search</i>
- </button>
+    <div class="center-align">
+      <button class="btn-large waves-effect waves-light" type="submit" name="action">Login
+        <i class="material-icons right">search</i>
+      </button>
+    </div>
   </form>
 </div>
 {% endblock content %}
