@@ -37,8 +37,12 @@ class Trip(models.Model):
     start_date
     end_date
     request_sent - boolean (indicates if it is possible to send a request or not)
+
     '''
-    pass
+    creator = models.ForeignKey(Traveller, on_delete=models.CASCADE)
+    place = models.CharField(max_length=100)
+    start_date = models.DateField()
+    end_date = models.DateField()
 
 #Maybe add EmailRequest model. Via email people can discuss more.
 
@@ -51,7 +55,10 @@ class TripRequest(models.Model):
     id
     initiator - relationships
     trip_owner - relationships
+    trip_id - relationships
     '''
+    initiator = models.ForeignKey(Traveller, on_delete=models.CASCADE)
+    trip_id = models.ForeignKey(Trip, on_delete=models.CASCADE)
     pass
 
 class Comment(models.Model):

@@ -1,7 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     var options = {
-      format: "yyyy-mm-dd"
+      format: "yyyy-mm-dd",
+      container: 'body'
     };
     var elems = document.querySelectorAll('.datepicker');
     var instances = M.Datepicker.init(elems, options);
@@ -17,5 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-
-
+  $(document).ready(function(){
+  $('.modal').modal();
+});

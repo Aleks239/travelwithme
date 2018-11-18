@@ -1,22 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from travelwithme.models import Traveller
+from travelwithme.models import Traveller, Trip
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 # Create your views here.
 def index(request):
     if request.method == "GET":
         return render(request, "travelwithme/searchtrip.html", {"user":request.user})
-            
+
 def users(request):
     return render(request, "travelwithme/alltrips.html")
-    
+
 def login_page(request):
     if request.user.is_authenticated:
          return redirect("travelwithme:index")
     return render(request, "travelwithme/login.html")
-    
+
 def signup(request):
     if request.user.is_authenticated:
          return redirect("travelwithme:index")
@@ -28,6 +29,27 @@ def log_user_out(request):
 
 
 #POST handlers
+
+def create_trip(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            user = request.user
+            place = request.POST['place']
+            start_date = request.POST['start_date']
+            end_date = request.POST['start_date']
+            if place is not None and start_date is not None and end_date is not None:
+                if not place or not start_date or not end_date:
+                    return render(request, "travelwithme/searchtrip.html", {"error":"Empty fields"})
+                else:
+                    Trip.objects.create(creator=user.traveller, place=place, start_date=start_date, end_date=end_date)
+                    return redirect("travelwithme:index")
+                    #redirect to my trips.
+
+        else:
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=500)
+
 
 def signup_user(request):
     if request.method == "POST":
@@ -65,7 +87,7 @@ def log_user_in(request):
         if email is not None and password is not None:
             if not email or not password:
                 return render(request, "travelwithme/login.html", {"error": "Empty input"})
-               
+
             else:
                 username = email
                 user = authenticate(request, username=username, password=password)
@@ -74,7 +96,7 @@ def log_user_in(request):
                     return redirect("travelwithme:index")
                 else:
                     return render(request, "travelwithme/login.html", {"error":"Wrong username or password"})
-                
+
         else:
             return render(request, "travelwithme/login.html", {"error": "Error in fields"})
     else:
