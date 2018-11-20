@@ -58,7 +58,8 @@ class TripRequest(models.Model):
     trip_id - relationships
     '''
     initiator = models.ForeignKey(Traveller, on_delete=models.CASCADE)
-    trip_id = models.ForeignKey(Trip, on_delete=models.CASCADE)
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20)
     pass
 
 class Comment(models.Model):

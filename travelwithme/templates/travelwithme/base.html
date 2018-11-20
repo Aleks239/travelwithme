@@ -25,7 +25,7 @@
         {% elif request.path == "/" and request.user.is_authenticated %}
         <li><a href="{% url 'travelwithme:logout' %}">Logout</a></li>
         <li><a href="{% url 'travelwithme:mytrips' %}">My trips</a></li>
-        <li><a href="{% url 'travelwithme:logout' %}">My requests</a></li>
+        <li><a href="{% url 'travelwithme:myrequests' %}">My requests</a></li>
         {% elif request.path == "/"  %}
                 <li><a href="{% url 'travelwithme:login' %}">Login</a></li>
 

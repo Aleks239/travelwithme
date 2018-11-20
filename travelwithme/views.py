@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from travelwithme.models import Traveller, Trip
+from travelwithme.models import Traveller, Trip, TripRequest
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -40,11 +40,50 @@ def user_info(request,traveller_id):
         else:
             return redirect("travelwithme:login")
 
+def my_requests(request):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            trip_requests = TripRequest.objects.filter(initiator=request.user.traveller)
+            return render(request, "travelwithme/myrequests.html", {"trip_requests":trip_requests})
+        else:
+            return redirect("travelwithme:login")
+
+def see_requests_to_my_trip(request,trip_id):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            trip = get_object_or_404(Trip, pk=trip_id)
+            requests_to_my_trip = TripRequest.objects.filter(trip=trip.id)
+            return render(request, "travelwithme/requests_to_my_trip.html", {"requests_to_my_trip":requests_to_my_trip})
+        else:
+            return redirect("travelwithme:login")
+
+
+
 
 
 
 
 #POST handlers
+
+
+def send_trip_request(request, trip_id):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            #validate if request already there
+            trip = get_object_or_404(Trip, pk=trip_id)
+            trip_request = TripRequest.objects.filter(initiator=request.user.traveller, trip=trip)
+            if trip_request.count() != 0 and trip.creator.user.id != request.user.id:
+                return render(request, "travelwithme/alltrips.html", {"error": "Request was already sent. Check your requests"})
+            else:
+                TripRequest.objects.create(initiator=request.user.traveller, trip=trip, status="pending")
+                return redirect("travelwithme:myrequests")
+        else:
+            return redirect("travelwithme:login")
+
+    else:
+        return HttpResponse(status=500)
+
+    
 
 
 def search_trips(request):

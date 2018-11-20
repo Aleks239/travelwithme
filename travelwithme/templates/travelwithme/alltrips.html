@@ -1,5 +1,8 @@
 {% extends "travelwithme/base.html" %}
 {% block content %}
+{% if error %}
+    <h3 style="color: red">{{ error }}</h3>
+{% endif %}
 {% for trip in trips %}
 <div class="row">
 <div class="col s12 m6">
@@ -9,7 +12,7 @@
 <p>The travel is between {{trip.start_date}} and {{trip.end_date}}. Send the request!</p>
 </div>
 <div class="card-action">
-<a href="#">Send the request</a>
+<a href="{% url 'travelwithme:send_trip_request' trip.id %}">Send the request</a>
 <a href="{% url 'travelwithme:user_info' trip.creator.id %}">User info</a>
 </div>
 </div>

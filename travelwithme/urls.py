@@ -15,4 +15,7 @@ urlpatterns = [
     path('mytrips', views.mytrips, name='mytrips'),
     path('user_info/<int:traveller_id>', views.user_info, name='user_info'),
     path('log_user_in', views.log_user_in, name='log_user_in'),
+    path('myrequests', views.my_requests, name='myrequests'),
+    path('send_trip_request/<int:trip_id>', views.send_trip_request, name='send_trip_request'),
+    path('requests_to_my_trip/<int:trip_id>', views.see_requests_to_my_trip, name='requests_to_my_trip'),
 ]
