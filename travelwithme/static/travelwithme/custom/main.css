@@ -7,3 +7,11 @@ html, body{
     height:100%;
 
 }
+#sec {
+    padding-top: 100px;
+}
+
+#background{
+    position: absolute;
+    z-index: -100;
+}

@@ -1,22 +1,39 @@
 {% extends "travelwithme/base.html" %}
+{% block background %}
+<img id="background" class="responsive-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=32a9c4941b484a53036a8c9492638dfb&auto=format&fit=crop&w=2553&q=80"
+  alt="sea">
+{% endblock background %}
+
 {% block content %}
 {% if error %}
     <h3 style="color: red">{{ error }}</h3>
 {% endif %}
+<div id="sec">
+  <form action="{% url 'travelwithme:search_trips' %}" method="post" class="col s12">
+    {% csrf_token %}
     <div class="row">
-      <form action="{% url 'travelwithme:search_trips' %}" class="col s12" method="post">
-        {% csrf_token %}
-        <div class="row">
-        <div class="input-field col s4">
-          <input name="start_date" placeholder="Start date" type="text" class="datepicker">
-        </div>
-        <div class="input-field col s4">
-            <input name="end_date" placeholder="End date" type="text" class="datepicker">
-          </div>
-          <div class="input-field col s4">
-              <input name="destination" placeholder="Destination" id="dest" type="text" class="validate">
-            </div>
+      <div class="input-field col s1"></div>
+      <div class="input-field col s10">
+        <input name="destination" id="destination" type="text" class="validate white">
+        <label htmlFor="Destination">
+          Destination
+        </label>
       </div>
+      <div class="input-field col s1"></div>
+    </div>
+    <div class="row">
+      <div class="input-field col s1"></div>
+      <div class="input-field col s5">
+        <input name="start_date" id="Start Date" type="text" class="datepicker white">
+        <label htmlFor="Start Date">
+          Start Date
+        </label>
+      </div>
+      <div class="input-field col s5">
+        <input name="end_date" id="End Date" type="text" class="datepicker white">
+        <label htmlFor="End Date">
+          End Date
+        </label>
         <button class="btn waves-effect waves-light" type="submit" name="action">Search for a trip
          <i class="material-icons right">search</i>
        </button>
@@ -57,4 +74,12 @@
 </div>
         {% endif %}
       </div>
+  {% if user.is_authenticated %}
+  <div class="fixed-action-btn">
+    <a class="waves-effect waves-light btn modal-trigger btn-floating btn-large red" href="#modal1"">
+      <i class="large material-icons">flight_takeoff</i>
+    </a>
+  </div>
+  {% endif %}
+</div>
 {% endblock content %}
