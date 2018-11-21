@@ -6,6 +6,16 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.db.models import Q
 from django.utils.dateparse import parse_date
+from enum import Enum
+
+class TripRequestStatus(Enum):
+    PENDING = "pending"
+    CONFIRMED = "confirmed"
+
+class TripStatus(Enum):
+    TERMINATED = "terminated"
+    COMPLETED = "completed"
+
 
 # Create your views here.
 def index(request):
@@ -64,6 +74,54 @@ def see_requests_to_my_trip(request,trip_id):
 
 
 #POST handlers
+def accept_trip_request(request, trip_request_id):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            trip_request = get_object_or_404(TripRequest, pk=trip_request_id)
+            if trip_request.trip.creator.user.id != request.user.id:
+                return render(request, "travelwithme/alltrips.html", {"error": "Accepting request not belonging to your trip"})
+            else:
+
+                TripRequest.objects.filter(pk=trip_request_id).update(status=TripRequestStatus.CONFIRMED)
+                return HttpResponseRedirect('/requests_to_my_trip/%d'%trip_request.trip.id)
+        else:
+            return redirect("travelwithme:login")
+
+    else:
+        return HttpResponse(status=500)
+
+
+def decline_trip_request(request, trip_request_id):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            trip_request = get_object_or_404(TripRequest, pk=trip_request_id)
+            if trip_request.trip.creator.user.id != request.user.id:
+                return render(request, "travelwithme/alltrips.html", {"error": "Deleting request not belonging to your trip"})
+            else:
+                TripRequest.objects.get(pk=trip_request_id).delete()
+                return redirect("travelwithme:mytrips")
+        else:
+            return redirect("travelwithme:login")
+
+    else:
+        return HttpResponse(status=500)
+
+
+def cancel_trip_request(request, trip_request_id):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            trip_request = get_object_or_404(TripRequest, pk=trip_request_id)
+            if trip_request.initiator.user.id != request.user.id:
+                return render(request, "travelwithme/alltrips.html", {"error": "Can not cancel other people requests."})
+            else:
+                TripRequest.objects.get(pk=trip_request_id).delete()
+                return redirect("travelwithme:myrequests")
+        else:
+            return redirect("travelwithme:login")
+
+    else:
+        return HttpResponse(status=500)
+
 
 
 def send_trip_request(request, trip_id):
@@ -83,7 +141,7 @@ def send_trip_request(request, trip_id):
     else:
         return HttpResponse(status=500)
 
-    
+
 
 
 def search_trips(request):

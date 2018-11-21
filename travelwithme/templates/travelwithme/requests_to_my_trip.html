@@ -10,10 +10,18 @@
 <div class="card-content white-text">
 <span class="card-title">Request from {{request.initiator.user.first_name}} {{request.initiator.user.last_name}}</span>
 <p>Email: {{request.initiator.user.email}}</p>
+<p>{{request.initiator.user.first_name}} wants to travel to {{request.trip.place}} with you</p>
+<p>Status: {{request.status}}
 </div>
 <div class="card-action">
-<a href="">Accept</a>
-<a href="">Decline</a>
+{% if request.status == "pending" %}
+  <a href="{% url 'travelwithme:accept_trip_request' request.id %}">Accept</a>
+  <a href="{% url 'travelwithme:decline_trip_request' request.id %}">Decline</a>
+{% endif %}
+{% if request.status == "confirmed" %}
+  <!--<a href="">Terminate the trip to {{request.trip.place}}</a>-->
+  <a href="">Complete the trip to {{request.trip.place}}</a>
+{% endif %}
 </div>
 </div>
 </div>

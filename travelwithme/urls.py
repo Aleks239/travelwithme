@@ -17,5 +17,8 @@ urlpatterns = [
     path('log_user_in', views.log_user_in, name='log_user_in'),
     path('myrequests', views.my_requests, name='myrequests'),
     path('send_trip_request/<int:trip_id>', views.send_trip_request, name='send_trip_request'),
+    path('cancel_trip_request/<int:trip_request_id>', views.cancel_trip_request, name='cancel_trip_request'),
+    path('decline_trip_request/<int:trip_request_id>', views.decline_trip_request, name='decline_trip_request'),
+    path('accept_trip_request/<int:trip_request_id>', views.accept_trip_request, name='accept_trip_request'),
     path('requests_to_my_trip/<int:trip_id>', views.see_requests_to_my_trip, name='requests_to_my_trip'),
 ]
