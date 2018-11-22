@@ -1,4 +1,10 @@
 {% extends "travelwithme/base.html" %}
+
+{% block background %}
+<img id="background" class="responsive-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=32a9c4941b484a53036a8c9492638dfb&auto=format&fit=crop&w=2553&q=80"
+    alt="sea">
+{% endblock background %}
+
 {% block content %}
 {% if error %}
     <h3 style="color: red">{{ error }}</h3>
