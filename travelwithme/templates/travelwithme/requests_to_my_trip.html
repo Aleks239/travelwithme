@@ -29,7 +29,7 @@
 <a href="{% url 'travelwithme:decline_trip_request' request.id %}">Decline</a>
 {% endif %}
 {% if request.trip.status == "completed" %}
-<a href="">Rate {{request.initiator.user.first_name}} {{request.initiator.user.last_name}}</a>
+<a href="{% url 'travelwithme:rate_user' request.trip.id request.initiator.user.id %}">Rate {{request.initiator.user.first_name}} {{request.initiator.user.last_name}}</a>
 {% endif %}
 {% if request.status == "confirmed" %}
   <!--<a href="">Terminate the trip to {{request.trip.place}}</a>-->

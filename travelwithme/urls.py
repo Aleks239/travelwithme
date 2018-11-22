@@ -22,4 +22,6 @@ urlpatterns = [
     path('accept_trip_request/<int:trip_request_id>', views.accept_trip_request, name='accept_trip_request'),
     path('requests_to_my_trip/<int:trip_id>', views.see_requests_to_my_trip, name='requests_to_my_trip'),
     path('complete_trip/<int:trip_id>', views.complete_trip, name='complete_trip'),
+    path('rate_user/<int:trip_id>/<int:user_id>', views.rate_user, name='rate_user'),
+    path('submit_rating/<int:user_id>', views.submit_rating, name='submit_rating'),
 ]

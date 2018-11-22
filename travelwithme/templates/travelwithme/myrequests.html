@@ -16,7 +16,7 @@
 </div>
 <div class="card-action">
 {% if trip_request.trip.status == "completed" %}
-<a href="">Rate trip with  {{trip_request.trip.creator.user.first_name}} {{trip_request.trip.creator.user.last_name}}</a>
+<a href="{% url 'travelwithme:rate_user' trip_request.trip.id trip_request.trip.creator.user.id %}">Rate trip with  {{trip_request.trip.creator.user.first_name}} {{trip_request.trip.creator.user.last_name}}</a>
 {% endif %}
 <a href="mailto:{{trip_request.trip.creator.user.email}}">Send email</a>
 {% if trip_request.status == "pending" %}

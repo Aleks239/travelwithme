@@ -73,6 +73,21 @@ def see_requests_to_my_trip(request,trip_id):
         else:
             return redirect("travelwithme:login")
 
+def rate_user(request, trip_id, user_id):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            trip = get_object_or_404(Trip, pk=trip_id)
+            #if trip.creator.user.id != request.user.id
+               # return render(request, "travelwithme/alltrips.html", {"error": "Rating error. Accesing wrong trip"}) 
+            user = get_object_or_404(User, pk=user_id)
+            return render(request, "travelwithme/rateuser.html",{"user":user})
+        else:
+            return redirect("travelwithme:login")
+
+    else:
+        return HttpResponse(status=500)
+
+
 
 
 
@@ -276,3 +291,40 @@ def log_user_in(request):
             return render(request, "travelwithme/login.html", {"error": "Error in fields"})
     else:
         return redirect("travelwithme:login")
+
+
+def submit_rating(request,user_id):
+    if request.method == "POST":
+        rating = request.POST["rating"]
+        if rating is not None:
+            if not rating:
+                return render(request, "travelwithme/rateuser.html", {"error": "Empty rating"})
+            else:
+                rating = float(rating)
+                print(rating)
+                Traveller.objects.filter(pk=user_id).update(rating=rating)
+                return redirect("travelwithme:index")
+    else:
+        return HttpResponse(status=500)
+
+
+
+def submit_rating(request,user_id):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            rating = request.POST["rating"]
+            if rating is not None:
+                if not rating:
+                    return render(request, "travelwithme/rateuser.html", {"error": "Empty rating"})
+                else:
+                    rating = int(rating)
+                    print(rating)
+                    traveller = User.objects.filter(pk=user_id)[0].traveller
+                    traveller.rating = rating
+                    traveller.save()
+                    return redirect("travelwithme:index")
+
+        else:
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=500)
