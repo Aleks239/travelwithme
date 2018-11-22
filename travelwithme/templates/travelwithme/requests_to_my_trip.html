@@ -11,16 +11,26 @@
 <span class="card-title">Request from {{request.initiator.user.first_name}} {{request.initiator.user.last_name}}</span>
 <p>Email: {{request.initiator.user.email}}</p>
 <p>{{request.initiator.user.first_name}} wants to travel to {{request.trip.place}} with you</p>
-<p>Status: {{request.status}}
+<p>Request status: {{request.status}}</p>
+<p>Trip status: {{request.trip.status}}</p>
 </div>
 <div class="card-action">
 {% if request.status == "pending" %}
   <a href="{% url 'travelwithme:accept_trip_request' request.id %}">Accept</a>
-  <a href="{% url 'travelwithme:decline_trip_request' request.id %}">Decline</a>
+  
+{% endif %}
+{% if request.trip.status != "completed" %}
+<a href="{% url 'travelwithme:decline_trip_request' request.id %}">Decline</a>
+{% endif %}
+{% if request.trip.status == "completed" %}
+<a href="">Rate {{request.initiator.user.first_name}} {{request.initiator.user.last_name}}</a>
 {% endif %}
 {% if request.status == "confirmed" %}
   <!--<a href="">Terminate the trip to {{request.trip.place}}</a>-->
-  <a href="">Complete the trip to {{request.trip.place}}</a>
+  {% if request.trip.status != "completed" %}
+  <a href="{% url 'travelwithme:complete_trip' request.trip.id %}">Complete the trip to {{request.trip.place}}</a>
+  {% endif %}
+  <a href="mailto:{{request.initiator.user.email}}">Send email</a>
 {% endif %}
 </div>
 </div>

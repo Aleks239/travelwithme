@@ -21,4 +21,5 @@ urlpatterns = [
     path('decline_trip_request/<int:trip_request_id>', views.decline_trip_request, name='decline_trip_request'),
     path('accept_trip_request/<int:trip_request_id>', views.accept_trip_request, name='accept_trip_request'),
     path('requests_to_my_trip/<int:trip_id>', views.see_requests_to_my_trip, name='requests_to_my_trip'),
+    path('complete_trip/<int:trip_id>', views.complete_trip, name='complete_trip'),
 ]

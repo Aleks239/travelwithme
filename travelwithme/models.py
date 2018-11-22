@@ -43,6 +43,7 @@ class Trip(models.Model):
     place = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
+    status = models.CharField(max_length=20)
 
 #Maybe add EmailRequest model. Via email people can discuss more.
 
