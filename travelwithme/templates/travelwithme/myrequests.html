@@ -10,11 +10,18 @@
 <div class="card blue-grey darken-1">
 <div class="card-content white-text">
 <span class="card-title">Email: {{trip_request.trip.creator.user.email}}</span>
-<p>You requested a trip with {{trip_request.trip.creator.user.first_name}} {{trip_request.trip.creator.user.last_name}}</p>
-<p>Status: {{trip_request.status}}</p>
+<p>You requested a trip with {{trip_request.trip.creator.user.first_name}} {{trip_request.trip.creator.user.last_name}} to {{trip_request.trip.place}}</p>
+<p>Request status: {{trip_request.status}}</p>
+<p>Trip status: {{trip_request.trip.status}}</p>
 </div>
 <div class="card-action">
-<a href="">Cancel request</a>
+{% if trip_request.trip.status == "completed" %}
+<a href="">Rate trip with  {{trip_request.trip.creator.user.first_name}} {{trip_request.trip.creator.user.last_name}}</a>
+{% endif %}
+<a href="mailto:{{trip_request.trip.creator.user.email}}">Send email</a>
+{% if trip_request.status == "pending" %}
+<a href="{% url 'travelwithme:cancel_trip_request' trip_request.id %}">Cancel request</a>
+{% endif %}
 <a href="{% url 'travelwithme:user_info' trip_request.trip.creator.id %}">User info</a>
 </div>
 </div>
