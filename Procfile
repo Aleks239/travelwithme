@@ -1,1 +1,1 @@
-web: gunicorn gameshop.wsgi --log-file -
+web: gunicorn travelwithme.wsgi --log-file -
