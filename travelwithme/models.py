@@ -23,6 +23,7 @@ class Traveller(models.Model):
     nationality = models.CharField(max_length=10)
     gender = models.CharField(max_length=10)
     birthday = models.DateField()
+    avatar = models.CharField(max_length=100)
 
 
 

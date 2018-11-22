@@ -8,6 +8,10 @@ from django.db.models import Q
 from django.utils.dateparse import parse_date
 from enum import Enum
 
+
+FEMALE_AVATAR = "https://www.shareicon.net/download/2016/06/26/786569_people_512x512.png"
+MALE_AVATAR = "https://www.shareicon.net/download/2016/07/05/791215_people_512x512.png"
+
 class TripRequestStatus(Enum):
     PENDING = "pending"
     CONFIRMED = "confirmed"
@@ -174,9 +178,9 @@ def search_trips(request):
                 if request.user.is_authenticated:
                     trips = Trip.objects.filter(~Q(creator = request.user.traveller))
             elif not start_date and not end_date:
-                trips = Trip.objects.filter(place=destination)
+                trips = Trip.objects.filter(place__icontains=destination)
                 if request.user.is_authenticated:
-                    trips = Trip.objects.filter(~Q(creator = request.user.traveller),place=destination)
+                    trips = Trip.objects.filter(~Q(creator = request.user.traveller),place__icontains=destination)
             elif not start_date or not end_date:
                 return render(request, "travelwithme/searchtrip.html",{"error":"Date must be provided"})
             elif not destination:
@@ -235,8 +239,12 @@ def signup_user(request):
                 return render(request, "travelwithme/signup.html", {"error":"User exists"})
             else:
                 username = email
-                user = User.objects.create_user(username, email=email, first_name=first_name, last_name=last_name, password=password)
-                traveller = Traveller.objects.create(user=user, hobbies=hobbies, nationality=nationality, birthday=birthday, gender=gender).save()
+                if gender == "male":
+                    user = User.objects.create_user(username, email=email, first_name=first_name, last_name=last_name, password=password)
+                    traveller = Traveller.objects.create(user=user, hobbies=hobbies, nationality=nationality, birthday=birthday, gender=gender, avatar=MALE_AVATAR).save()
+                elif gender == "female":
+                    user = User.objects.create_user(username, email=email, first_name=first_name, last_name=last_name, password=password)
+                    traveller = Traveller.objects.create(user=user, hobbies=hobbies, nationality=nationality, birthday=birthday, gender=gender, avatar=FEMALE_AVATAR).save()
                 user.save()
                 login(request, user, backend="django.contrib.auth.backends.ModelBackend")
                 return redirect("travelwithme:index")
