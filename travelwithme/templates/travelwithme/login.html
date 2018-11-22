@@ -1,24 +1,35 @@
 {% extends "travelwithme/base.html" %}
+
+{% block background %}
+<img id="background" class="responsive-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=32a9c4941b484a53036a8c9492638dfb&auto=format&fit=crop&w=2553&q=80"
+  alt="sea">
+{% endblock background %}
+
 {% block content %}
 {% if error %}
-    <h3 style="color: red">{{ error }}</h3>
+<h3 style="color: red">{{ error }}</h3>
 {% endif %}
-<div class="row">
+<div class="row" style="margin-top: 15%;">
   <form action="{% url 'travelwithme:log_user_in' %}" method="post" class="col s12">
-      {% csrf_token %}
+    {% csrf_token %}
     <div class="row">
-      <div class="input-field col s6">
-        <input name="email" id="email" type="email" class="validate">
+      <div class="input-field col s10 offset-s1">
+        <input name="email" id="email" type="email" class="validate white">
         <label for="email">Email</label>
       </div>
-      <div class="input-field col s6">
-        <input name="password" id="email" type="password" class="validate">
+    </div>
+
+    <div class="row">
+      <div class="input-field col s10 offset-s1">
+        <input name="password" id="email" type="password" class="validate white">
         <label for="email">Password</label>
       </div>
     </div>
-  <button class="btn waves-effect waves-light" type="submit" name="action">Login
-   <i class="material-icons right">search</i>
- </button>
+    <div class="center-align">
+      <button class="btn-large waves-effect waves-light" type="submit" name="action">Login
+        <i class="material-icons right">arrow_forward</i>
+      </button>
+    </div>
   </form>
 </div>
 {% endblock content %}

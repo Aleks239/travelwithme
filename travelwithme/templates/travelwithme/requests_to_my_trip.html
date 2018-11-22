@@ -1,22 +1,38 @@
 {% extends "travelwithme/base.html" %}
+
+{% block background %}
+<img id="background" class="responsive-img" src="https://images.unsplash.com/photo-1495904786722-d2b5a19a8535?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=27b39bf242061eef125315e0b3ba3cfb&auto=format&fit=crop&w=2614&q=80"
+  alt="sea">
+{% endblock background %}
+
 {% block content %}
 {% if error %}
-    <h3 style="color: red">{{ error }}</h3>
+<h3 style="color: red">{{ error }}</h3>
 {% endif %}
-{% for request in requests_to_my_trip %}
-<div class="row">
-<div class="col s12 m6">
-<div class="card blue-grey darken-1">
-<div class="card-content white-text">
-<span class="card-title">Request from {{request.initiator.user.first_name}} {{request.initiator.user.last_name}}</span>
-<p>Email: {{request.initiator.user.email}}</p>
-</div>
-<div class="card-action">
-<a href="">Accept</a>
-<a href="">Decline</a>
-</div>
-</div>
-</div>
-</div>
-{% endfor %}
+
+<ul class="collection" style="border-radius: 2px; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2); margin-top: 50px;">
+  {% for request in requests_to_my_trip %}
+  <li class="collection-item">
+    <div class="row" style="margin:1%">
+      <img src="https://www.shareicon.net/download/2016/07/05/791215_people_512x512.png" alt="figure" class="responsive-img col s2 circle">
+
+      <div class="col s7">
+        <p style="font-size: 1.5rem">Request from <b>{{request.initiator.user.first_name}}
+            {{request.initiator.user.last_name}}</b></p>
+        <p style="font-size: 1.3rem">{{request.initiator.user.email}}</p>
+      </div>
+      <div class="col s3">
+        <div class="row" style="margin-top:3%;">
+          <a href="#" class="waves-effect waves-light btn" style="width: 100%;">
+            Accept</a>
+        </div>
+        <div class="row">
+          <a href="#" class="waves-effect waves-light btn red" style="width: 100%;">
+            Decline</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
 {% endblock content %}

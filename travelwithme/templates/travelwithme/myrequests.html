@@ -14,7 +14,6 @@
 <p>Status: {{trip_request.status}}</p>
 </div>
 <div class="card-action">
-<a href="mailto:{{trip_request.trip.creator.user.email}}">Send email</a>
 <a href="">Cancel request</a>
 <a href="{% url 'travelwithme:user_info' trip_request.trip.creator.id %}">User info</a>
 </div>

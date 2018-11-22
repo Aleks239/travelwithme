@@ -28,9 +28,9 @@
           {% elif request.path == "/signup" %}
           <li><a href="{% url 'travelwithme:login' %}" class="black-text">Login</a></li>
           {% elif request.path == "/" and request.user.is_authenticated %}
-          <li><a href="{% url 'travelwithme:logout' %}">Logout</a></li>
-          <li><a href="{% url 'travelwithme:mytrips' %}">My trips</a></li>
-          <li><a href="{% url 'travelwithme:myrequests' %}">My requests</a></li>
+          <li><a href="{% url 'travelwithme:logout' %}" class="black-text">Logout</a></li>
+          <li><a href="{% url 'travelwithme:mytrips' %}" class="black-text">My trips</a></li>
+          <li><a href="{% url 'travelwithme:myrequests' %}" class="black-text">My requests</a></li>
           {% elif request.path == "/" %}
           <li><a href="{% url 'travelwithme:login' %}" class="black-text">Login</a></li>
 
